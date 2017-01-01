@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve android_version_checker
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/android-version-checker
+Environment="PATH=/var/www/android-version-checker/env/bin"
+ExecStart=/var/www/android-version-checker/env/bin/gunicorn --workers 3 --bind unix:android_version_checker.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
