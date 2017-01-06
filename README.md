@@ -139,84 +139,95 @@ You can follow this link https://www.digitalocean.com/community/tutorials/how-to
 
 For example I use /var/www/android-version-checker as project folder.
 
-1. Install virtualenv
-```
-$ sudo apt-get install virtualenv
-```
+1. Install virtualenv 
+
+    ```
+    $ sudo apt-get install virtualenv
+    ```
 2. From project folder
-```
-$ cd /var/www/android-version-checker
-```
+
+    ```
+    $ cd /var/www/android-version-checker
+    ```
 3. Set up virtualenv
-```
-$ virtualenv env
-$ source env/bin/activate
-```
-3. Update pip and install gunicorn
-```
-$ sudo env/bin/pip install --upgrade pip
-$ sudo env/bin/pip install gunicorn
-```
-4. Install dependencies
-```
-$ sudo env/bin/pip install -r requirements.txt
-```
-5. Test app
-```
-$ env/bin/python2 android_version_checker.py
-```
-6. If everything is good - test gunicorn
-```
-$ env/bin/gunicorn --bind 0.0.0.0:5005 wsgi:app
-```
-7. Create a systemd Unit File (don't forget modify path). Group must be 
+
+    ```
+    $ virtualenv env
+    $ source env/bin/activate
+    ```
+4. Update pip and install gunicorn
+
+    ```
+    $ sudo env/bin/pip install --upgrade pip
+    $ sudo env/bin/pip install gunicorn
+    ```
+5. Install dependencies
+
+    ```
+    $ sudo env/bin/pip install -r requirements.txt
+    ```
+6. Test app
+
+    ```
+    $ env/bin/python2 android_version_checker.py
+    ```
+7. If everything is good - test gunicorn
+
+    ```
+    $ env/bin/gunicorn --bind 0.0.0.0:5005 wsgi:app
+    ```
+8. Create a systemd Unit File (don't forget modify path). Group must be 
 www-data otherwise nginx can not access to sock file.
-```
-$ sudo nano /etc/systemd/system/android_version_checker.service
-```
-```
-[Unit]
-Description=Gunicorn instance to serve android_version_checker
-After=network.target
 
-[Service]
-User=www-data
-Group=www-data
-WorkingDirectory=/var/www/android-version-checker
-Environment="PATH=/var/www/android-version-checker/env/bin"
-ExecStart=/var/www/android-version-checker/env/bin/gunicorn --workers 3 --bind unix:android_version_checker.sock -m 007 wsgi:app
+    ```
+    $ sudo nano /etc/systemd/system/android_version_checker.service
+    ```
+    ```
+    [Unit]
+    Description=Gunicorn instance to serve android_version_checker
+    After=network.target
 
-[Install]
-WantedBy=multi-user.target
-```
-8. Deactivate environment and start gunicorn process
-```
-$ deactivate
-$ sudo systemctl start android_version_checker
-$ sudo systemctl enable android_version_checker
-```
-8.5 [Ubuntu only] Open up port 5005 or another port 
-```
-$ sudo ufw allow 5005
-```
-9. Configure nginx
-```
-server {
-    listen 5005;
-    server_name server_domain_or_IP;
-    
-    access_log  /var/log/nginx/android-version-checker.access.log;
-    error_log   /var/log/nginx/android-verdion-checker.error.log;
+    [Service]
+    User=www-data
+    Group=www-data
+    WorkingDirectory=/var/www/android-version-checker
+    Environment="PATH=/var/www/android-version-checker/env/bin"
+    ExecStart=/var/www/android-version-checker/env/bin/gunicorn --workers 3 --bind unix:android_version_checker.sock -m 007 wsgi:app
 
-    location / {
-        proxy_set_header Host $http_host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_pass http://unix:/var/www/android-version-checker/android_version_checker.sock;
+    [Install]
+    WantedBy=multi-user.target
+    ```
+9. Deactivate environment and start gunicorn process
+
+    ```
+    $ deactivate
+    $ sudo systemctl start android_version_checker
+    $ sudo systemctl enable android_version_checker
+    ```
+**9.5 [Ubuntu only]** Open up port 5005 or another port 
+
+    ```
+    $ sudo ufw allow 5005
+    ```
+10. Configure nginx
+
+    ```
+    server {
+        listen 5005;
+        server_name server_domain_or_IP;
+
+        access_log  /var/log/nginx/android-version-checker.access.log;
+        error_log   /var/log/nginx/android-verdion-checker.error.log;
+
+        location / {
+            proxy_set_header Host $http_host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_pass http://unix:/var/www/android-version-checker/android_version_checker.sock;
+        }
     }
-}
-```
+    ```
 
 # <a name="api"></a> Service API reference
 
