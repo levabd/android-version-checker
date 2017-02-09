@@ -65,16 +65,18 @@ update hardcoded version number saved on our backend.
 **Fourth** solution is pretty good. You have to get this value from your 
 Google 
 Play Store page.
+
 ```
 <div class="content" itemprop="softwareVersion"> 1.2.5  </div>
 ```
+
 **But** you have to update the app when something in html is changed. And 
 this method have another side effect. Google don't show app version number 
 when you use several platforms (x86 and armeabi-v7a). For example 
 https://play.google.com/store/apps/details?id=com.wipon.wipon page have not 
 version number on it. 
 
-That's why I`d like to use Google Play Developer API and fake deploy 
+That's why I'd like to use Google Play Developer API and fake deploy 
 mechanism to get apk's list. This method is the most stable in my opinion. 
 It realised in this repo
 
@@ -96,7 +98,7 @@ Configuration is simply copying the OAuth2 key to project folder.
 
 1. Go to the APIs Console and log in with your Google Play Developer Console account.
 2. Go to Settings → API access
-3. Turn the Google Play Android Developer API on if it`s not
+3. Turn the Google Play Android Developer API on if it's not
 4. Create or link Google Developer Project with Google Play Developer Console account
 ![](./resources/doc/333fbc3959d449a3afba1170b0c1e47e.jpg)
 ![](./resources/doc/e14cbf2fd25b4a058094d2d8c4094a01.jpg)
@@ -259,10 +261,10 @@ Example of version number: `2.5.3`
 
 Look at [configuration](#configuration). Maybe you haven't credential file. 
 
-#####Google don`t now about your package or you don't upload any version yet (422 BAD REQUEST)
+#####Google don't now about your package or you don't upload any version yet (422 BAD REQUEST)
 ```
 {
-  'error': 'Can`t find package <package id>'
+  'error': 'Can't find package <package id>'
 }
 ```
 
@@ -298,12 +300,11 @@ Check your Google Play Developer Console. Do you upload apk file?
 #####Common error (400 BAD REQUEST)
 ```
 {
-  'error': 'Can`t get android version for some reason'
+  'error': 'Can't get android version for some reason'
 }
 ```
 
-Something else happened. Maybe your server don`t have stable internet 
-connection.
+Something else happened. Maybe your server don't have stable internet connection.
 
 # <a name="contributing"></a> Contributing
 
