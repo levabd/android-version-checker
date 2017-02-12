@@ -97,17 +97,17 @@ Configuration is simply copying the OAuth2 key to project folder.
 2. Go to Settings → API access
 3. Turn the Google Play Android Developer API on if it's not
 4. Create or link Google Developer Project with Google Play Developer Console account
-![](../resources/doc/333fbc3959d449a3afba1170b0c1e47e.jpg)
-![](../resources/doc/e14cbf2fd25b4a058094d2d8c4094a01.jpg)
+![](./resources/333fbc3959d449a3afba1170b0c1e47e.jpg)
+![](./resources/e14cbf2fd25b4a058094d2d8c4094a01.jpg)
 5. Go to Service Accounts and Grant Access to this account
-![](../resources/doc/3458cee80bcd47bbb022c836737b120f.jpg)
-![](../resources/doc/66b895ec8af34c9d88c6f23d71be69bf.jpg)
+![](./resources/3458cee80bcd47bbb022c836737b120f.jpg)
+![](./resources/66b895ec8af34c9d88c6f23d71be69bf.jpg)
 6. Click Add user on window above
-![](../resources/doc/6405755ffa084992a196719efe2645a7.jpg)
+![](./resources/6405755ffa084992a196719efe2645a7.jpg)
 7. Generate OAuth service account in Google Developer Console
-![](../resources/doc/select-oauth-service-account-key.png)
+![](./resources/select-oauth-service-account-key.png)
 8. Create JSON (NOT p12) keyfile and **Save as** `key.json` **in the project directory**
-![](../resources/doc/Capture99.png)
+![](./resources/Capture99.png)
 9. That's it
 
 More details on official docs [https://developers.google.com/android-publisher/authorization](https://developers.google.com/android-publisher/authorization)
