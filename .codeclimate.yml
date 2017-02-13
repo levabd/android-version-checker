@@ -1,0 +1,41 @@
+engines:
+  pep8:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - python
+  fixme:
+    enabled: true
+  radon:
+    enabled: true
+    config:
+      threshold: "C"
+  markdownlint:
+    enabled: true
+    checks:
+      MD004:
+        enabled: false
+      MD005:
+        enabled: false
+      MD006:
+        enabled: false
+      MD007:
+        enabled: false
+      MD013:
+        enabled: false
+      MD026:
+        enabled: false
+      MD031:
+        enabled: false
+      MD033:
+        enabled: false
+      MD036:
+        enabled: false
+ratings:
+  paths:
+  - "**.py"
+exclude_paths:
+- logs/*
+- docs/*
