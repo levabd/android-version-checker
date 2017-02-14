@@ -1,18 +1,19 @@
 [![Analytics](https://ga-beacon.appspot.com/UA-88665090-1/stack-updater)](https://github.com/igrigorik/ga-beacon)
+[![Code Climate](https://lima.codeclimate.com/github/levabd/android-version-checker/badges/gpa.svg)](https://lima.codeclimate.com/github/levabd/android-version-checker)
 
 # About
 
-This is unofficial service-wrapper of Google Play Developer API for retrieving 
-Android app version that currently located on Google Play Store in simple 
+This is unofficial service-wrapper of Google Play Developer API for retrieving
+Android app version that currently located on Google Play Store in simple
 JSON (REST) response.
 
-Just call GET request `/?id={com.app.app}` and get last app version (Beta 
+Just call GET request `/?id={com.app.app}` and get last app version (Beta
 versions not captured)
 
 # Attention!!!
 
-Request to Google Play Developer API takes about 3 second. That's why this 
-service cached app version for 4 hour. So you will receive information from 
+Request to Google Play Developer API takes about 3 second. That's why this
+service cached app version for 4 hour. So you will receive information from
 the delay up to 4 hours.
 
 # Table of contents
@@ -26,19 +27,19 @@ the delay up to 4 hours.
   - [GET /?id={com.app.app}](#get-version)
 - [Contributing](#contributing)
 - [License](#license)
- 
+
 # <a name="why"></a> Why?
 
-You have put your app on the Google Play Store. It has been installed by 
-lots of customers. The users should check the auto-update check box in the 
+You have put your app on the Google Play Store. It has been installed by
+lots of customers. The users should check the auto-update check box in the
 Play Store app for each app they want to auto-update. However some users have
- unchecked it or not checked it in the first place. 
+unchecked it or not checked it in the first place. 
   
 So you may want to use some service to pragmatically check if there is an
- updated version of my app on the Play Store. If there is an updated 
- version then the user could be directed to the Play Store. 
-   
-Google Play does not provide any official APIs for retrieving metadata in 
+updated version of my app on the Play Store. If there is an updated
+version then the user could be directed to the Play Store. 
+
+Google Play does not provide any official APIs for retrieving metadata in
 simple way.
 
 So I found several solution on stackoverflow. There are 2 types of them:
@@ -49,32 +50,31 @@ So I found several solution on stackoverflow. There are 2 types of them:
 2. Use own API with hardsaved app version on backend
 3. Use [http://api.playstoreapi.com/v1.1/apps](http://api.playstoreapi.com/v1.1/apps)
 4. Get version value from your Google Play Store page. ([http://stackoverflow.com/questions/25201349/programmatically-check-play-store-for-app-updates](http://stackoverflow.com/questions/25201349/programmatically-check-play-store-for-app-updates) and [http://stackoverflow.com/questions/7298106/how-to-allow-users-to-check-for-the-latest-app-version-from-inside-the-app](http://stackoverflow.com/questions/7298106/how-to-allow-users-to-check-for-the-latest-app-version-from-inside-the-app) and many others)
-   
-**First** services just wrapper for web page or hosted on google app engine 
+
+**First** services just wrapper for web page or hosted on google app engine
 which usually outage when daily free quota used up.
 
-With **Second** solution you have to update hardcoded version number every 
-release. For example we release a new version every week and forgot to 
+With **Second** solution you have to update hardcoded version number every
+release. For example we release a new version every week and forgot to
 update hardcoded version number saved on our backend.
 
 **Third**. www.playstoreapi.com is not available anymore.
 
 **Fourth** solution is pretty good. You have to get this value from your 
-Google 
-Play Store page.
+Google Play Store page.
 
 ```
 <div class="content" itemprop="softwareVersion">1.2.5</div>
 ```
 
-**But** you have to update the app when something in html is changed. And 
-this method have another side effect. Google don't show app version number 
-when you use several platforms (x86 and armeabi-v7a). For example 
-[https://play.google.com/store/apps/details?id=com.wipon.wipon](https://play.google.com/store/apps/details?id=com.wipon.wipon) page have not 
+**But** you have to update the app when something in html is changed. And
+this method have another side effect. Google don't show app version number
+when you use several platforms (x86 and armeabi-v7a). For example
+[https://play.google.com/store/apps/details?id=com.wipon.wipon](https://play.google.com/store/apps/details?id=com.wipon.wipon) page have not
 version number on it. 
 
-That's why I'd like to use Google Play Developer API and fake deploy 
-mechanism to get apk's list. This method is the most stable in my opinion. 
+That's why I'd like to use Google Play Developer API and fake deploy
+mechanism to get apk's list. This method is the most stable in my opinion.
 It realised in this repo
 
 # <a name="installation"></a> Installation
@@ -128,17 +128,17 @@ python android_version_checker.py
 sh ./start-stage.sh
 ```
 
-Optionally you can use `supervisor/staging_android_version_checker.conf` 
+Optionally you can use `supervisor/staging_android_version_checker.conf`
 supervisor program config.
 
 ## For production (Debian or Ubuntu + NGINX + Gunicorn)
 
 You can follow this link [https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-16-04](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-ubuntu-16-04)
- or instruction below.
+or instruction below.
 
 For example I use /var/www/android-version-checker as project folder.
 
-##### 1. Install virtualenv 
+##### 1. Install virtualenv
 
 ```
 $ sudo apt-get install virtualenv
@@ -149,39 +149,39 @@ $ sudo apt-get install virtualenv
 ```
 $ cd /var/www/android-version-checker
 ```
-    
+
 ##### 3. Set up virtualenv
 
 ```
 $ virtualenv env
 $ source env/bin/activate
 ```
-    
+
 ##### 4. Update pip and install gunicorn
 
 ```
 $ sudo env/bin/pip install --upgrade pip
 $ sudo env/bin/pip install gunicorn
 ```
-    
+
 ##### 5. Install dependencies
 
 ```
 $ sudo env/bin/pip install -r requirements.txt
 ```
-    
+
 ##### 6. Test app
 
 ```
 $ env/bin/python2 android_version_checker.py
 ```
-    
+
 ##### 7. If everything is good - test gunicorn
 
 ```
 $ env/bin/gunicorn --bind 0.0.0.0:5005 wsgi:app
 ```
-    
+
 ##### 8. Create a systemd Unit File (don't forget modify path). Group must be www-data otherwise nginx can not access to sock file.
 
 ```
@@ -203,7 +203,7 @@ ExecStart=/var/www/android-version-checker/env/bin/gunicorn --workers 3 --bind u
 [Install]
 WantedBy=multi-user.target
 ```
-    
+
 ##### 9. Deactivate environment and start gunicorn process
 
 ```
@@ -212,12 +212,12 @@ $ sudo systemctl start android_version_checker
 $ sudo systemctl enable android_version_checker
 ```
 
-##### *9.5 [Ubuntu only]* Open up port 5005 or another port 
+##### *9.5 [Ubuntu only]* Open up port 5005 or another port
 
 ```
 $ sudo ufw allow 5005
 ```
-    
+
 ##### 10. Configure nginx
 
 ```
@@ -244,7 +244,7 @@ By default API runs on `5005` port.
 
 ## <a name="get-version"></a> GET /?id={com.app.app}
 
-Returns app version by package id 
+Returns app version by package id
 
 ### Request params
 
@@ -270,7 +270,7 @@ Example of version number: `2.5.3`
 }
 ```
 
-Look at [configuration](#configuration). Maybe you haven't credential file. 
+Look at [configuration](#configuration). Maybe you haven't credential file.
 
 ##### Google don't now about your package or you don't upload any version yet (422 BAD REQUEST)
 
@@ -280,7 +280,7 @@ Look at [configuration](#configuration). Maybe you haven't credential file.
 }
 ```
 
-Look at Google Play Developer Console. You may have an error on it. 
+Look at Google Play Developer Console. You may have an error on it.
 
 ##### Your package has unusual version number convention (400 BAD REQUEST)
 
@@ -320,7 +320,7 @@ Check your Google Play Developer Console. Do you upload apk file?
 }
 ```
 
-Something else happened. Maybe your server don't have stable internet 
+Something else happened. Maybe your server don't have stable internet
 connection.
 
 # <a name="contributing"></a> Contributing

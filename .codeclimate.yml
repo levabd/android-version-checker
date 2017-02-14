@@ -3,6 +3,9 @@ engines:
     enabled: true
   duplication:
     enabled: true
+    exclude_fingerprints:
+    - 819b6b9b70c343c117abe480c605c4b0
+    - 56561c538e74ea3836139d65d34a9b45
     config:
       languages:
       - python
@@ -15,6 +18,10 @@ engines:
   markdownlint:
     enabled: true
     checks:
+      MD001:
+        enabled: false
+      MD002:
+        enabled: false
       MD004:
         enabled: false
       MD005:
@@ -25,9 +32,17 @@ engines:
         enabled: false
       MD013:
         enabled: false
+      MD014:
+        enabled: false
+      MD022:
+        enabled: false
       MD026:
         enabled: false
+      MD029:
+        enabled: false
       MD031:
+        enabled: false
+      MD032:
         enabled: false
       MD033:
         enabled: false

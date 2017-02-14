@@ -1,4 +1,5 @@
 [![Analytics](https://ga-beacon.appspot.com/UA-88665090-1/stack-updater)](https://github.com/igrigorik/ga-beacon)
+[![Code Climate](https://lima.codeclimate.com/github/levabd/android-version-checker/badges/gpa.svg)](https://lima.codeclimate.com/github/levabd/android-version-checker)
 
 # About
 
