@@ -33,18 +33,18 @@ the delay up to 4 hours.
 You have put your app on the Google Play Store. It has been installed by
 lots of customers. The users should check the auto-update check box in the
 Play Store app for each app they want to auto-update. However some users have
-unchecked it or not checked it in the first place. 
-  
+unchecked it or not checked it in the first place.
+
 So you may want to use some service to pragmatically check if there is an
 updated version of my app on the Play Store. If there is an updated
-version then the user could be directed to the Play Store. 
+version then the user could be directed to the Play Store.
 
 Google Play does not provide any official APIs for retrieving metadata in
 simple way.
 
 So I found several solution on stackoverflow. There are 2 types of them:
 
-1. Use some open web services like 
+1. Use some open web services like
    [https://androidquery.appspot.com/api/market?app=org.ligi.fast](https://androidquery.appspot.com/api/market?app=org.ligi.fast) or
    [http://carreto.pt/tools/android-store-version/?package=org.ligi.fast](http://carreto.pt/tools/android-store-version/?package=org.ligi.fast)
 2. Use own API with hardsaved app version on backend
@@ -60,7 +60,7 @@ update hardcoded version number saved on our backend.
 
 **Third**. www.playstoreapi.com is not available anymore.
 
-**Fourth** solution is pretty good. You have to get this value from your 
+**Fourth** solution is pretty good. You have to get this value from your
 Google Play Store page.
 
 ```
@@ -71,7 +71,7 @@ Google Play Store page.
 this method have another side effect. Google don't show app version number
 when you use several platforms (x86 and armeabi-v7a). For example
 [https://play.google.com/store/apps/details?id=com.wipon.wipon](https://play.google.com/store/apps/details?id=com.wipon.wipon) page have not
-version number on it. 
+version number on it.
 
 That's why I'd like to use Google Play Developer API and fake deploy
 mechanism to get apk's list. This method is the most stable in my opinion.
@@ -248,7 +248,7 @@ Returns app version by package id
 
 ### Request params
 
-* `id` - **Required** field. Android Package identifier 
+* `id` - **Required** field. Android Package identifier
 
 #### Responses
 

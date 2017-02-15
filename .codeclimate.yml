@@ -36,6 +36,8 @@ engines:
         enabled: false
       MD022:
         enabled: false
+      MD024:
+        enabled: false
       MD026:
         enabled: false
       MD029:
