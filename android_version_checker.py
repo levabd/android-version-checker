@@ -20,6 +20,7 @@ class GetAppVersion(Resource):
     @staticmethod
     def get():
         args = request.args
+        short_version = True if 'short' in args else False
         if args['id'].isspace():
             abort(400, message="The package name undefined. Example: "
                                "com.android.sample")
@@ -62,8 +63,8 @@ class GetAppVersion(Resource):
             last_version = str(apks_result['apks'][-1]['versionCode'])
 
             formatted_version = '{0}.{1}.{2}'.format(last_version[0],
-                                                     last_version[3],
-                                                     last_version[4])
+                                                     last_version[2] if short_version else last_version[3],
+                                                     last_version[3] if short_version else last_version[4])
             app.logger.info('Save to cache')
             # Usually releasing new app version take 4 hours. That's why we
             # save version to cache for 4 hours

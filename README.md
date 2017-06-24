@@ -24,7 +24,7 @@ the delay up to 4 hours.
 - [Configuration](#configuration)
 - [Running](#running)
 - [Service API reference](#api)
-  - [GET /?id={com.app.app}](#get-version)
+  - [GET /?id={com.app.app}&short={true}](#get-version)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -249,6 +249,7 @@ Returns app version by package id
 ### Request params
 
 * `id` - **Required** field. Android Package identifier
+* `short` - **Optional** field. Android Package version format. Short for versionCode like "103100". Without flag for versionCode like "100310"  
 
 #### Responses
 
