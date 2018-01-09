@@ -3,6 +3,7 @@
 import sys
 import logging.handlers
 import os
+import re
 # noinspection PyUnresolvedReferences
 import apiclient
 import httplib2
