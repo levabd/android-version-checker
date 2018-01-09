@@ -25,11 +25,9 @@ class GetAppVersion(Resource):
         if args['id'].isspace():
             abort(400, message="The package name undefined. Example: "
                                "com.android.sample")
-        if args['mask'].isspace():
-            abort(400, message="The android version code mask undefined. Example: "
-                               "HHLLIPP H - Major, L- Minor, P-Patch, I-ignore")
+        
         package_name = args['id']
-        mask = args['mask'] # mask of your version code. H - Major, L- Minor, P-Patch, I-ignore
+        mask = 'HILPIII' if 'mask' not in args else args['mask'] # mask of your version code. H - Major, L- Minor, P-Patch, I-ignore
         ignore = [m.start() for m in re.finditer('I', mask)] # get list of index ignored symbols
         major = mask.count('H') # calc Major symbols
         minor = mask.count('L')# calc Minor symbols
