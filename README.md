@@ -24,7 +24,7 @@ the delay up to 4 hours.
 - [Configuration](#configuration)
 - [Running](#running)
 - [Service API reference](#api)
-  - [GET /?id={com.app.app}&short={true}](#get-version)
+  - [GET /?id={com.app.app}&mask={HILPIII}](#get-version)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -249,7 +249,7 @@ Returns app version by package id
 ### Request params
 
 * `id` - **Required** field. Android Package identifier
-* `short` - **Optional** field. Android Package version format. Short for versionCode like "103100". Without flag for versionCode like "100310"  
+* `mask` - **Optional** field. Mask for version format. The following characters are recognized in the format parameter string: "H - Major, L- Minor, P-Patch, I-ignore". By default "HILPIII"  
 
 #### Responses
 
