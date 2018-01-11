@@ -3,6 +3,7 @@
 import sys
 import logging.handlers
 import os
+import re
 # noinspection PyUnresolvedReferences
 import apiclient
 import httplib2
@@ -24,8 +25,13 @@ class GetAppVersion(Resource):
         if args['id'].isspace():
             abort(400, message="The package name undefined. Example: "
                                "com.android.sample")
+        
         package_name = args['id']
-
+        mask = 'HILPIII' if 'mask' not in args else args['mask'] # mask of your version code. H - Major, L- Minor, P-Patch, I-ignore
+        ignore = [m.start() for m in re.finditer('I', mask)] # get list of index ignored symbols
+        major = mask.count('H') # calc Major symbols
+        minor = mask.count('L')# calc Minor symbols
+        patch = mask.count('P')# calc Patch symbols
         app.logger.info('Try loading version from cache')
         formatted_version = cache.get(package_name)
         if formatted_version is not None:
@@ -61,10 +67,12 @@ class GetAppVersion(Resource):
                 editId=edit_id, packageName=package_name).execute()
             app.logger.info("Request for {0} completed".format(package_name))
             last_version = str(apks_result['apks'][-1]['versionCode'])
-
-            formatted_version = '{0}.{1}.{2}'.format(last_version[0],
-                                                     last_version[2] if short_version else last_version[3],
-                                                     last_version[3] if short_version else last_version[4])
+            #remove ignored symbols
+            for i in range(len(ignore)):
+                last_version = last_version[:ignore[i]-i] + last_version[ignore[i]+1-i:] 
+            formatted_version = '{0}.{1}.{2}'.format(last_version[0:major],
+                                                     last_version[major:major+minor],
+                                                     last_version[major+minor:major+minor+patch])
             app.logger.info('Save to cache')
             # Usually releasing new app version take 4 hours. That's why we
             # save version to cache for 4 hours
