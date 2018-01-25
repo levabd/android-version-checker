@@ -249,7 +249,7 @@ Returns app version by package id
 ### Request params
 
 * `id` - **Required** field. Android Package identifier
-* `mask` - **Optional** field. Mask for version format. The following characters are recognized in the format parameter string: "H - Major, L- Minor, P-Patch, I-ignore". By default "HILPIII"  
+* `mask` - **Optional** field. Mask for version format. The following characters are recognized in the format parameter string: "H - Major, L- Minor, P-Patch, I-ignore". By default "HILPIII"
 
 #### Responses
 

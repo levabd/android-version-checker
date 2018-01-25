@@ -21,7 +21,7 @@ class GetAppVersion(Resource):
 
     credentials = None
     package_name = ''
-    package_name_undefined = ("The package name undefined. Example:" 
+    package_name_undefined = ("The package name undefined. Example:"
                               "com.android.sample")
     cache_empty = ("Cache for {0} is empty or expired. Try to get version"
                    " from Google. Loading key file")
@@ -37,7 +37,7 @@ class GetAppVersion(Resource):
     def get(self):
         args = request.args
         if args['id'].isspace():
-            abort(400, message=self.package_name_undefined)
+            self.abort(400, self.package_name_undefined)
         self.package_name = args['id']
         app.logger.info('Try loading version from cache')
         formatted_version = cache.get
@@ -50,19 +50,20 @@ class GetAppVersion(Resource):
         except:
             abort(501, message=self.cant_load_credentials)
         try:
-            return{'last_version': self.proceed_query(self.extract_mask(args))}
+            return{"last_version": self.proceed_query(*self.parse_mask(args))}
         except IndexError:
-            app.logger.error(sys.exc_info()[0])
-            abort(422, message=self.version_notfound.format(self.package_name))
+            self.abort(422, self.version_notfound.format(self.package_name))
         except apiclient.errors.HttpError:
-            app.logger.error(sys.exc_info()[0])
-            abort(422, message=self.cant_find.format(self.package_name))
+            self.abort(422, self.cant_find.format(self.package_name))
         except:
-            app.logger.error(sys.exc_info()[0])
-            abort(400, message=self.error_400)
+            self.abort(400, self.error_400)
+
+    def abort(self, error, message):
+        app.logger.error(sys.exc_info()[0])
+        abort(error, message=message)
 
     @staticmethod
-    def extract_mask(args):
+    def parse_mask(args):
         # mask of your version code. H - Major, L- Minor, P-Patch, I-ignore
         mask = 'HILPIII' if 'mask' not in args else args['mask']
         # get list of index ignored symbols
