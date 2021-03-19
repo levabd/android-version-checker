@@ -7,7 +7,7 @@ Flask-Cache==0.13.1
 Flask-RESTful==0.3.5
 functools32==3.2.3.post2
 itsdangerous==0.24
-Jinja2==2.10.1
+Jinja2==2.11.3
 JsonForm==0.0.2
 jsonschema==2.5.1
 JsonSir==0.0.2
